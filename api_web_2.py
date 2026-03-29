@@ -11,8 +11,7 @@ def shorten_link(token, url, long_link):
     response = requests.post(url, json=payload, headers=headers)
     response.raise_for_status()
     parsed_short_url = urlparse(response.json()["shorturl"])
-    short_link = parsed_short_url[1] + parsed_short_url[2]
-    return short_link
+    return f"{parsed_short_url.netloc}{parsed_short_url.path}"
 
 
 def count_clicks(token, url, short_link):
