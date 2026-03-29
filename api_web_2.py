@@ -35,15 +35,6 @@ def is_bitlink(token, url, link):
 def main():
     load_dotenv(".env")
     user_link = input("Введите ссылку: ")
-    try:
-        response = requests.get(user_link)
-        response.raise_for_status()
-    except requests.exceptions.HTTPError:
-        print("Произошла ошибка, введена неверная ссылка")
-        sys.exit("Программа остановлена из-за ошибки.")
-    except requests.exceptions.MissingSchema:
-        print("Произошла ошибка, введена неверная ссылка")
-        sys.exit("Программа остановлена из-за ошибки.")
     link_is_short = is_bitlink(
         token=os.getenv("TOKEN"),
         url="https://clc.li/api/urls?limit=2&page=1&order=date",
