@@ -29,8 +29,7 @@ def is_bitlink(token, url, link):
     headers = {"Authorization": token, "Content-Type": "application/json"}
     response = requests.get(url, headers=headers, params=payload)
     response.raise_for_status()
-    if not response.json()["error"]:
-        return True
+    return not response.json()["error"]
 
 
 def main():
