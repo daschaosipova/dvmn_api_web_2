@@ -36,26 +36,26 @@ def main():
     load_dotenv(".env")
     user_link = input("Введите ссылку: ")
     link_is_short = is_bitlink(
-        token=os.getenv("TOKEN"),
+        token=os.environ["CLC_TOKEN"],
         url="https://clc.li/api/urls?limit=2&page=1&order=date",
         link=user_link,
     )
     if link_is_short:
         clicks_count = count_clicks(
-            token=os.getenv("TOKEN"),
+            token=os.environ["CLC_TOKEN"],
             url="https://clc.li/api/urls?limit=2&page=1&order=date",
             short_link=user_link,
         )
         print("Количество кликов по ссылке:", clicks_count)
     else:
         short_link = shorten_link(
-            token=os.getenv("TOKEN"),
+            token=os.environ["CLC_TOKEN"],
             url="https://clc.li/api/url/add",
             long_link=user_link,
         )
         print("Короткая ссылка", short_link)
         clicks_count = count_clicks(
-            token=os.getenv("CLC_TOKEN"),
+            token=os.environ["CLC_TOKEN"],
             url="https://clc.li/api/urls?limit=2&page=1&order=date",
             short_link=short_link,
         )
