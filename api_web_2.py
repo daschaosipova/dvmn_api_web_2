@@ -10,8 +10,8 @@ def shorten_link(token, url, long_link):
     headers = {"Authorization": token, "Content-Type": "application/json"}
     response = requests.post(url, json=payload, headers=headers)
     response.raise_for_status()
-    parsed = urlparse(response.json()["shorturl"])
-    short_link = parsed[1] + parsed[2]
+    parsed_short_url = urlparse(response.json()["shorturl"])
+    short_link = parsed_short_url[1] + parsed_short_url[2]
     return short_link
 
 
