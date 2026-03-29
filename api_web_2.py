@@ -35,15 +35,17 @@ def is_bitlink(token, url, link):
 def main():
     load_dotenv(".env")
     user_link = input("Введите ссылку: ")
+    list_links_payload = {"limit":"2", "page":"1", "order":"date"}
+    list_links_response = requests.get("https://clc.li/api/urls", params=list_links_payload)
     link_is_short = is_bitlink(
         token=os.environ["CLC_TOKEN"],
-        url="https://clc.li/api/urls?limit=2&page=1&order=date",
+        url=list_links_response.url,
         link=user_link,
     )
     if link_is_short:
         clicks_count = count_clicks(
             token=os.environ["CLC_TOKEN"],
-            url="https://clc.li/api/urls?limit=2&page=1&order=date",
+            url=list_links_response.url,
             short_link=user_link,
         )
         print("Количество кликов по ссылке:", clicks_count)
@@ -54,12 +56,6 @@ def main():
             long_link=user_link,
         )
         print("Короткая ссылка", short_link)
-        clicks_count = count_clicks(
-            token=os.environ["CLC_TOKEN"],
-            url="https://clc.li/api/urls?limit=2&page=1&order=date",
-            short_link=short_link,
-        )
-        print("Количество кликов по ссылке:", clicks_count)
 
 
 if __name__ == "__main__":
