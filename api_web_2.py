@@ -55,7 +55,7 @@ def main():
         )
         print("Короткая ссылка", short_link)
         clicks_count = count_clicks(
-            token=os.getenv("TOKEN"),
+            token=os.getenv("CLC_TOKEN"),
             url="https://clc.li/api/urls?limit=2&page=1&order=date",
             short_link=short_link,
         )
