@@ -1,8 +1,16 @@
 import requests
 import os
+import sys
+import argparse
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 
+
+def createParser ():
+    parser = argparse.ArgumentParser()
+    parser.add_argument ('userlink', help='Ссылка пользователя')
+ 
+    return parser
 
 def shorten_link(token, long_link):
     payload = {"url": long_link}
@@ -43,7 +51,9 @@ def get_list_links_url():
 
 def main():
     load_dotenv(".env")
-    user_link = input("Введите ссылку: ")
+    parser = createParser()
+    namespace = parser.parse_args(sys.argv[1:])
+    user_link = namespace.userlink
     link_is_short = is_bitlink(
         token=os.environ["CLC_TOKEN"],
         link=user_link,
